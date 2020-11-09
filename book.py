@@ -26,7 +26,8 @@ def get_price_tax(delicious_soup):
 
 def get_price_tax_exclu(delicious_soup):
     price_tax_exclu = delicious_soup.find_all('td')
-    print("Prix avec taxe exclus : " , price_tax_exclu[3].text)
+    price = 
+    print("Prix avec taxe exclus : " , re.findall(r'\d+', price_tax_exclu[3].text))
 
 
 def get_number_available(delicious_soup):
