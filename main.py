@@ -2,8 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import lxml
 import time
+from operator import add
 
-def get_href(url_link):
+def get_href_links(url_link):
     response = requests.get(url_link)
     soup = BeautifulSoup(response.text, 'lxml')
     href_links = soup.find_all('li', {'class':"col-xs-6 col-sm-4 col-md-3 col-lg-3"})
@@ -16,22 +17,15 @@ def get_href(url_link):
 
 if __name__ == "__main__":
     url = 'http://books.toscrape.com/catalogue/page-1.html'
+    previous = 1
+    links = []
 
-    # previous = 1
-    # links = []
-    # for i in range(1, 51):
-    #     url = url.replace(str(previous), str(i))
-    #     previous = i
-    #     # links.append(url)
+    for i in range(1, 51):
+        url = url.replace(str(previous), str(i))
+        previous = i
+        links.append(get_href_links(url))
+        time.sleep(1)
 
-    # response = requests.get(links[2])
-    # soup = BeautifulSoup(response.text, 'lxml')
-    # url_link = soup.find_all('li', {'class':"col-xs-6 col-sm-4 col-md-3 col-lg-3"})
+    print(len(sum(links, [])))
 
-    # for link in url_link:
-    #     a = link.find('a')
-    #     print("http://books.toscrape.com/catalogue/"+ str(a['href']))
-    #     time.sleep(1)
-
-    result = get_href(url)
-    print(*result, sep ="\n")
+    

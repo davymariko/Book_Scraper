@@ -5,7 +5,6 @@ import re
 
 def get_description(delicious_soup):
     price = delicious_soup.find_all('p')
-    check = 0
     print("Description: \n" , price[3].text)
     
 
@@ -26,7 +25,6 @@ def get_price_tax(delicious_soup):
 
 def get_price_tax_exclu(delicious_soup):
     price_tax_exclu = delicious_soup.find_all('td')
-    price = 
     print("Prix avec taxe exclus : " , re.findall(r'\d+', price_tax_exclu[3].text))
 
 

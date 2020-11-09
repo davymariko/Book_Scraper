@@ -16,5 +16,3 @@ class BookScraper:
         for link in url_link:
             a = link.find('a')
             links.append("http://books.toscrape.com/catalogue/"+ str(a['href']))
-
-    def get_price
