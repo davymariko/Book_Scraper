@@ -1,31 +1,20 @@
-import requests
-from bs4 import BeautifulSoup
-import lxml
-import time
-from operator import add
 
-def get_href_links(url_link):
-    response = requests.get(url_link)
-    soup = BeautifulSoup(response.text, 'lxml')
-    href_links = soup.find_all('li', {'class':"col-xs-6 col-sm-4 col-md-3 col-lg-3"})
-    url_pattern = "http://books.toscrape.com/catalogue/" 
+def this_function():
+    print("Test this")
 
-    links = [url_pattern + str(link.find('a')['href']) for link in href_links]
+def that_function():
+    print("Test that")
     
-    return links
-
 
 if __name__ == "__main__":
-    url = 'http://books.toscrape.com/catalogue/page-1.html'
-    previous = 1
-    links = []
+    print("Bienvenue à Bookscraper\n\nVeuillez faire un choix:")
+    print("1. Avoir des données des livres par catégorie\n2. Avoir des données de tous les livres")
 
-    for i in range(1, 51):
-        url = url.replace(str(previous), str(i))
-        previous = i
-        links.append(get_href_links(url))
-        time.sleep(1)
+    key = int(input(""))
 
-    print(len(sum(links, [])))
-
-    
+    if key == 1:
+        this_function()
+    elif key == 2:
+        that_function()
+    else:
+        print("Wrong choice")
