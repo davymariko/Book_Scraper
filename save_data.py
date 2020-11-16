@@ -1,6 +1,7 @@
 import pandas as pd
 import requests
 import os
+from book_scraper import BookScraper
 
 PATH = os.getcwd()
 os.chdir(PATH)
@@ -26,15 +27,18 @@ def save_csv(category_name, books_list):
     df.to_csv(location +'/File.csv')
 
 
-def save_image(image_url):
+def save_image(book_links):
     """
     Fonction qui permet de sauvegarder l'image du livre visite
 
-    :param image_url: Le lien de l'image à sauvegarder
+    :param book_links: Liste contenant les liens de livres
     """
-    response = requests.get(image_url)
-    location = "Assets/Images/"
-
-    file = open(location, "wb")
-    file.write(response.content)
-    file.close()
+    location = "Assets/Images/" 
+    for link in book_links:
+        book = BookScraper(link)
+        image_url = book.get_image_url()
+        response = requests.get(image_url)
+        file_location = location + image_url.split("/")[-1]
+        file = open(file_location, "wb")
+        file.write(response.content)
+        file.close()
