@@ -23,3 +23,5 @@ if __name__ == "__main__":
         book_data = book_data_per_category(book_links)
 
         save_csv(category_name, book_data)
+
+        save_image(book_links)
