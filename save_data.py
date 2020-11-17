@@ -2,11 +2,13 @@ import pandas as pd
 import requests
 import os
 from book_scraper import BookScraper
+import urllib.request
+import csv
 
 PATH = os.getcwd()
 os.chdir(PATH)
 
-def save_csv(category_name, books_list):
+def save_csv(category_name: str, books_data_list: list) -> None:
     """
     Fonction qui permet de sauvegarder les livres d'une categorie specifique dans un fichier csv
 
@@ -18,27 +20,22 @@ def save_csv(category_name, books_list):
 
     os.makedirs(location)
 
-    # Create the pandas DataFrame
-    df = pd.DataFrame(books_list, columns = ['Product Page Url', 'UPC', 'Title', 
-        'Price Including Tax', 'Price Excluding Tax', 'Number Available',
+    # Creer un DataFrame Pandas
+    df = pd.DataFrame(books_data_list, columns = ['Product Page Url', 'UPC',
+        'Title', 'Price Including Tax', 'Price Excluding Tax', 'Number Available',
         'Product Description', 'Category', 'Rating', 'Image Url'])
     
-    # Save dataframe
+    # Sauvegarder le dataframe en csv
     df.to_csv(location +'/File.csv')
 
 
-def save_image(book_links):
+def save_image(image_urls: list) -> None:
     """
     Fonction qui permet de sauvegarder l'image du livre visite
 
-    :param book_links: Liste contenant les liens de livres
+    :param image_urls: Liste contenant les liens des images des livres selectionnés 
     """
     location = "Assets/Images/" 
-    for link in book_links:
-        book = BookScraper(link)
-        image_url = book.get_image_url()
-        response = requests.get(image_url)
-        file_location = location + image_url.split("/")[-1]
-        file = open(file_location, "wb")
-        file.write(response.content)
-        file.close()
+    for link in image_urls:
+        file_location = location + link.split("/")[-1]
+        urllib.request.urlretrieve(link, file_location)
