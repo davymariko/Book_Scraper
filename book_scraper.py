@@ -10,7 +10,7 @@ class BookScraper:
         self.soup = BeautifulSoup(requests.get(url_link).text, 'lxml')
 
     
-    def get_description(self):
+    def set_description(self):
         """
         Une fonction qui permet d'avoir la description du livre
         """
@@ -21,69 +21,54 @@ class BookScraper:
 
         self.description = description
 
-        return self.description
 
-
-    def get_title(self):
+    def set_title(self):
         """
         Une fonction qui permet d'avoir le titre du livre
         """
         self.title = self.soup.h1.text
 
-        return self.title
-
     
-    def get_upc(self):
+    def set_upc(self):
         """
         Une fonction qui permet d'avoir l'universal_ product_code (upc) du livre
         """
         self.upc = self.soup.find('table', {'class': 'table table-striped'}).find('td').text
 
-        return self.upc
 
-
-    def get_price_tax_exclu(self):
+    def set_price_tax_exclu(self):
         """
         Une fonction qui permet d'avoir le prix taxe exclus du livre
         """
         price = self.soup.find('table').find_all('td')[2].text
         self.price_tax_exclu = re.findall(r"\d+\.\d+", price)[0]
 
-        return float(self.price_tax_exclu)
-        # self.price_tax = float(re.findall(r"\d+\.\d+", price.text)[0])
 
-
-    def get_price_tax(self):
+    def set_price_tax(self):
         """
         Une fonction qui permet d'avoir le prix taxe inclus du livre
         """
         price = self.soup.find('table').find_all('td')[3].text.replace(",",".")
         self.price_tax_inclu = re.findall(r"\d+\.\d+", price)[0]
 
-        return float(self.price_tax_inclu)
-
     
-    def get_number_available(self):
+    def set_number_available(self):
         """
         Une fonction qui permet d'avoir le nombre de livre disponible en stock
         """
         number = self.soup.find_all('td')[5].text
         self.number_available = int(re.findall(r'\d+', number)[0])
 
-        return self.number_available
 
-
-    def get_category(self):
+    def set_category(self):
         """
         Une fonction qui permet d'avoir la catégorie du livre
         """
         category = self.soup.find('ul' , {'class':'breadcrumb'})
         self.category = category.find_all('li')[2].text.strip()
 
-        return self.category
-
     
-    def get_image_url(self):
+    def set_image_url(self):
         """
         Une fonction qui permet d'avoir le lien d'image du livre
         """
@@ -91,10 +76,8 @@ class BookScraper:
         link_pattern ="http://books.toscrape.com/"
         self.image_url = link_pattern + str(image['src'][6:])
 
-        return self.image_url
 
-
-    def get_rating(self):
+    def set_rating(self):
         """
         Une fonction qui permet d'avoir l'evaluation sur 5 du livre
         """
@@ -103,37 +86,20 @@ class BookScraper:
 
         self.rating = ratings_dict[ratings[1]]
 
-        return self.rating
-
-        # if ratings[0]['class'][1] == 'One':
-        #     self.rating = 1
-        # elif ratings[0]['class'][1] == 'Two':
-        #     self.rating = 2
-        # elif ratings[0]['class'][1] == 'Three':
-        #     self.rating = 3
-        # elif ratings[0]['class'][1] == 'Four':
-        #     self.rating = 4
-        # else:
-        #     self.rating = 5
-
     
-    # def get_all(self):
-    #     self.get_upc()
-    #     self.get_title()
-    #     self.get_price_tax()
-    #     self.get_price_tax_exclu()
-    #     self.get_number_available()
-    #     self.get_description()
-    #     self.get_category()
-    #     self.get_rating()
-    #     self.get_image_url()
-
-    
-    def save_all_in_dict(self):
-        data = [self.url_link, self.get_upc(), self.get_title(), 
-            self.get_price_tax(), self.get_price_tax_exclu(),
-            self.get_number_available(), self.get_description(),
-            self.get_category(), self.get_rating(), self.get_image_url()]
+    def save_all_in_dict(self) -> list:
+        self.set_upc()
+        self.set_title()
+        self.set_price_tax()
+        self.set_price_tax_exclu()
+        self.set_number_available()
+        self.set_description()
+        self.set_category()
+        self.set_rating()
+        self.set_image_url()
+        data = [self.url_link, self.upc, self.title, self.price_tax_exclu, 
+            self.price_tax_inclu, self.number_available, self.description,
+            self.category, self.rating, self.image_url]
 
         return data
         
@@ -174,6 +140,5 @@ if __name__ == "__main__":
 
     # print(book.__dict__)
 
-
-    # book.save_all_in_dict()
-    # print(*book.data, sep='\n')
+    # 
+    pass
