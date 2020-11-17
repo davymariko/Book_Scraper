@@ -4,7 +4,7 @@ import lxml
 import time
 from book_scraper import BookScraper
 
-def book_urls_per_category(category_url):
+def book_urls_per_category(category_url: str) -> list:
     """
     Fonction qui permet d'avoir tous les liens des livres se trouvant dans une catégorie
 
@@ -21,18 +21,21 @@ def book_urls_per_category(category_url):
         if page != None:
             page_count = int(page.text.split()[-1])
             previous = 2
-            url = category_url.replace("index.html", "page-2.html")
+            url_pattern = category_url.replace("index.html", "")
+            page = "page-2.html"
 
             for count in range(2,page_count+1):
-                url = url.replace(str(previous), str(count))
+                page = page.replace(str(previous), str(count))
+                url = url_pattern + page
                 result.append(get_href_links(url))
                 previous = count
-
+    else:
+        print("Book URLs FAILED")
 
     return sum(result, [])
 
 
-def book_data_per_category(books_urls):
+def books_data_per_category(books_urls: str) -> list:
     """
     Fonction qui permet d'avoir tous les données des livres se trouvant dans une catégorie
 
@@ -48,31 +51,38 @@ def book_data_per_category(books_urls):
     return books_data
 
 
-def get_href_links(page_url):
+def get_href_links(page_url: str) -> list:
     """
     Fonction qui permet d'avoir les liens href souhaites se trouvant dans une page
 
     :param page_url: Une liste contenant tous les liens des livres à scraper
     """
     response = requests.get(page_url)
-    soup = BeautifulSoup(response.text, 'lxml')
-    href_links = soup.find_all('li', {'class':"col-xs-6 col-sm-4 col-md-3 col-lg-3"})
-    url_pattern = "http://books.toscrape.com/catalogue" 
+
+    if response.ok:
+        soup = BeautifulSoup(response.text, 'lxml')
+        href_links = soup.find_all('li', {'class':"col-xs-6 col-sm-4 col-md-3 col-lg-3"})
+        url_pattern = "http://books.toscrape.com/catalogue"
+    else:
+        print("Get href Links FAILED")
 
     links = [url_pattern + str(link.find('a')['href'][8:]) for link in href_links]
     
     return links
 
 
-def get_category_urls(website_url):
+def get_category_urls(website_url: str) -> list:
     """
     Fonction qui permet d'avoir tous les liens des catégories de livre se trouvant sur le sote
 
     :param website_url: Le lien du site web à scraper
     """
     response = requests.get(website_url)
-    soup = BeautifulSoup(response.text, 'lxml')
-    category = soup.find('ul', {'class':'nav nav-list'}).find('ul').find_all('li')
+    if response.ok:
+        soup = BeautifulSoup(response.text, 'lxml')
+        category = soup.find('ul', {'class':'nav nav-list'}).find('ul').find_all('li')
+    else:
+        print("FAIL")
 
     return [[cat.text.strip(), (website_url+cat.find('a')['href'])] for cat in category]
 
@@ -80,9 +90,9 @@ def get_category_urls(website_url):
 if __name__ == "__main__":
     # print(*get_category_url("http://books.toscrape.com/"), sep="\n")
 
-    # res = book_urls_per_category("http://books.toscrape.com/catalogue/category/books/nonfiction_13/index.html")
+    res = book_urls_per_category("http://books.toscrape.com/catalogue/category/books/nonfiction_13/index.html")
 
     # print(*res, sep="\n")
-    # print(len(res))
+    print(len(res))
 
-    print(*get_href_links("http://books.toscrape.com/catalogue/category/books/nonfiction_13/page-4.html"), sep="\n")
+    # print(*get_href_links("http://books.toscrape.com/catalogue/category/books/nonfiction_13/page-4.html"), sep="\n")
