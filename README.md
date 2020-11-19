@@ -19,7 +19,7 @@ pip install -r requirements.txt
 Pour lancer le programme lancer le fichier `main.py`
 
 ## La Mission
-** Fiction **
+** Fictif **
 
 Un responsable d'équipe m'a chargé de développer une version bêta d'un système pour suivre les prix des livres chez [Books To Scrape](http://books.toscrape.com/), un revendeur de livres en ligne. En pratique, dans cette version bêta, mon programme n'effectuera pas une véritable surveillance en temps réel des prix sur la durée. Il s'agira simplement d'une application exécutable à la demande visant à récupérer les prix au moment de son exécution.
 
