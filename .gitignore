@@ -1,6 +1,7 @@
 __pycache__/
-test.py
-Assets/
 .vscode/
+Assets/
+test.py
 geckodriver.log
 book.py
+src/__pycache__/
