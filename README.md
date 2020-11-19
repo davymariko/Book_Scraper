@@ -16,7 +16,10 @@ pip install -r requirements.txt
 ```
 
 ## Execution
-Pour lancer le programme lancer le fichier `main.py`
+Pour lancer le programme lancer le fichier 
+```bash
+python -m scrapper
+```
 
 ## La Mission
 ** Fictif **
