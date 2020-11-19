@@ -4,8 +4,7 @@ import lxml
 
 def page_content(page_url : str):
     """
-    Une fonction qui retourne le contenu beautifulsoup d'une page web
-    en cas de cas succès et False au cas contraire
+    Une fonction qui retourne le contenu beautifulsoup d'une page web en cas de cas succès et False au cas contraire
 
     :param page_url: le lien de la page web
     """
