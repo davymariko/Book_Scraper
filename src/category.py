@@ -81,7 +81,7 @@ class CategoryClass:
 
 def get_category_urls(website_url: str) -> list:
     """
-    Fonction qui permet d'avoir tous les liens des catégories de livre se trouvant sur le site
+    Fonction qui retourne tous les liens des catégories de livre se trouvant sur le site
     
     :param website_url: Le lien du site web à scraper
     """
@@ -97,6 +97,6 @@ def get_category_urls(website_url: str) -> list:
         result = [[cat.text.strip(), (website_url+cat.find('a')['href'])] for cat in category]
     except:
         result = []
-        print("Fail to get category urls")
+        print("Fail to get all category urls")
 
     return result
