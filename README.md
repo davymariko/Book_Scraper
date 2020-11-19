@@ -9,7 +9,7 @@ Le challenge est de scraper le site web [Book To Scrape](http://books.toscrape.c
 * L'outil de développment utilisé et recommandé: `vscode`
 
 ## Installation
-1. Cloner, en premier, le projet sur votre 
+1. Cloner, en premier, le projet sur votre bureau ou environnement local
 2. Installer les pre-requis pour ce projet en lançant la commande:
 ```bash
 pip install -r requirements.txt
