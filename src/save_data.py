@@ -26,7 +26,7 @@ def save_csv(category_name: str, books_data_list: list) -> None:
     df.to_csv(location +'/File.csv')
 
 
-def save_image(image_urls: list) -> None:
+def save_image(image_urls: list):
     """
     Fonction qui permet de sauvegarder l'image du livre visite
 
