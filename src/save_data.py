@@ -35,4 +35,7 @@ def save_image(image_urls: list) -> None:
     location = "Assets/Images/" 
     for link in image_urls:
         file_location = location + link.split("/")[-1]
-        urllib.request.urlretrieve(link, file_location)
+        try:
+            urllib.request.urlretrieve(link, file_location)
+        except:
+            print(f'Echec: Telecharger fichier au lien: {link}')
