@@ -7,7 +7,7 @@ class CategoryClass:
         self.category_url = category_url
 
     
-    def books_data_per_category(self) -> list:
+    def books_data_per_category(self):
         """
         Fonction qui permet d'avoir tous les données des livres se trouvant dans une catégorie
         
@@ -25,7 +25,7 @@ class CategoryClass:
         return books_data
 
 
-    def book_urls_per_category(self) -> list:
+    def book_urls_per_category(self):
         """
         Fonction qui retourne tous les liens des livres se trouvant dans une catégorie
 
@@ -57,7 +57,7 @@ class CategoryClass:
         return sum(result, [])
 
 
-    def get_href_links(self, page_url: str) -> list:
+    def get_href_links(self, page_url: str):
         """
         Fonction qui permet d'avoir les liens href souhaites se trouvant dans une page
 
@@ -79,7 +79,7 @@ class CategoryClass:
 
 
 
-def get_category_urls(website_url: str) -> list:
+def get_category_urls(website_url: str):
     """
     Fonction qui retourne tous les liens des catégories de livre se trouvant sur le site
     
