@@ -3,5 +3,4 @@ __pycache__/
 Assets/
 test.py
 geckodriver.log
-book.py
 src/__pycache__/
