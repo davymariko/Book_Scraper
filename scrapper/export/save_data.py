@@ -1,9 +1,6 @@
 import pandas as pd
 import os
 
-PATH = os.getcwd()
-os.chdir(PATH)
-
 
 def save_csv(category_name, books_data_list):
     """
@@ -18,7 +15,10 @@ def save_csv(category_name, books_data_list):
 
     location = "Assets/CSV_Files/" + category_name.replace(' ', '_')
 
-    os.makedirs(location)
+    if os.path.exists(location +'/File.csv'):
+        return
+    elif not os.path.exists(location):
+        os.makedirs(location)
 
     # Creer un DataFrame Pandas
     df = pd.DataFrame(books_data_list, columns = ['Product Page Url', 'UPC',
