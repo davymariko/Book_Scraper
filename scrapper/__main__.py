@@ -16,8 +16,8 @@ def main():
         this_category = CategoryClass(category_url)
         book_data = this_category.books_data_per_category()
         save_csv(category_name, book_data)
-        book_image_urls = [url[9] for url in book_data]
-        save_image(book_image_urls)
+        book_images_data = [[url[9], url[2]] for url in book_data]
+        save_image(book_images_data)
 
     print("--- %s seconds ---" % (time.time() - start_time))
 
