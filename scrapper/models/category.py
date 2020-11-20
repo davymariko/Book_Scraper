@@ -11,8 +11,7 @@ class CategoryClass:
         """
         Fonction qui permet d'avoir tous les données
         des livres se trouvant dans une catégorie
-        
-        :param books_urls: Une liste contenant tous 
+        :param books_urls: Une liste contenant tous
         les liens des livres à scraper
         """
 
@@ -51,7 +50,7 @@ class CategoryClass:
                 url_pattern = url_pattern.replace("index.html", "")
                 page = "page-2.html"
 
-                for count in range(2 , page_count+1):
+                for count in range(2, page_count+1):
                     page = page.replace(str(previous), str(count))
                     url = url_pattern + page
                     result.append(self.get_href_links(url))
@@ -74,7 +73,7 @@ class CategoryClass:
         if soup is False:
             print("Get href Links FAILED")
         else:
-            href_links = soup.find_all('li', 
+            href_links = soup.find_all('li',
             {'class': "col-xs-6 col-sm-4 col-md-3 col-lg-3"})
 
             url_pattern = "http://books.toscrape.com/catalogue"
@@ -86,11 +85,11 @@ class CategoryClass:
         
         return links
 
+
 def get_category_urls(website_url):
     """
     Fonction qui retourne tous les liens des catégories
     de livre se trouvant sur le site
-    
     :param website_url: Le lien du site web à scraper
     """
 

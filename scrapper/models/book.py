@@ -95,7 +95,7 @@ class BookScraper:
             category = category.find_all('li')[2].text.strip()
         except:
             category = "No Category Available"
-        
+
         return category
 
     @property
@@ -119,8 +119,8 @@ class BookScraper:
         """
         try:
             ratings = self.soup.find('p', {'class': 'star-rating'})['class']
-            ratings_dict = {"One": 1, "Two": 2, "Three": 3, 
-                        "Four": 4, "Five": 5}
+            ratings_dict = {"One": 1, "Two": 2, "Three": 3,
+                "Four": 4, "Five": 5}
             rating = ratings_dict[ratings[1]]
         except:
             rating = "No Rating available"
@@ -133,8 +133,8 @@ class BookScraper:
         Une fonction qui retourne une liste contenant
         toutes les données sur un livre
         """
-        data = [self.book_url, self.uni_product_code, self.title, 
-        self.price_tax_exclu, self.price_tax_inclu, self.number_available, 
+        data = [self.book_url, self.uni_product_code, self.title,
+        self.price_tax_exclu, self.price_tax_inclu, self.number_available,
         self.description, self.category, self.rating, self.image_url]
 
         return data
